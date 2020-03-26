@@ -281,7 +281,7 @@ strainTrackSaveMeLeft = strcat(saveMeHere, 'Left Tracking/');
 mkdir(strainTrackSaveMeLeft);
 strainTrackNameLeft = strcat(sampleName, '-LeftTracker');
 cd(strainTrackSaveMeLeft);
-[leftTracker] = strain_autoCentroid_lei(leftThresh);
+[leftTracker] = strain_autoCentroid_lei(leftThresh, colorType);
 cd(saveMeHere);
 
 %% track points in original right video & save coordinates
@@ -290,7 +290,7 @@ strainTrackSaveMeRight = strcat(saveMeHere, 'Right Tracking/');
 mkdir(strainTrackSaveMeRight);
 strainTrackNameRight = strcat(sampleName, '-RightTracker');
 cd(strainTrackSaveMeRight);
-[rightTracker] = strain_autoCentroid_lei(rightThresh);
+[rightTracker] = strain_autoCentroid_lei(rightThresh, colorType);
 cd(saveMeHere);
 
 

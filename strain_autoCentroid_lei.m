@@ -1,10 +1,16 @@
-function [ coord ] = strain_autoCentroid_lei(video)
+function [ coord ] = strain_autoCentroid_lei(video, isColorThresh)
 % most recent edit 18Mar2020 to allow for user to specify if they want to
 % go back to a particular frame in the redo
 
 %% enter thresholding loop
-    for i = 1:size(video,4)
-        tmpvideo(:,:,i) = rgb2gray(video(:,:,:,i));
+    if (isColorThresh == 0)
+        for i = 1:size(video,4)
+            tmpvideo(:,:,i) = rgb2gray(video(:,:,:,i));
+        end
+    else
+        for i = 1:size(video,4)
+            tmpvideo(:,:,i) = video(:,:,:,i);
+        end
     end
     clear video
     video = tmpvideo;
