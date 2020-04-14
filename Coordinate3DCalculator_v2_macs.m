@@ -11,6 +11,8 @@
 % modified to take in images or videos 3/19/19
 % made exponentially more user friendly 3/10/20
 
+% add in comment here for demonstration
+
 %% get user input
 
 clc
