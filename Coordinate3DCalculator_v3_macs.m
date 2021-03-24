@@ -17,7 +17,7 @@ clc
 clearvars
 
 % ask user for local
-disp('Please indicated local directory');
+disp('Please indicate local directory');
 local = uigetdir;
 
 %ask user for where 3D videos are
@@ -229,7 +229,7 @@ if colorType == 1
         else
             colorThresholder(rightFile)
         end
-        doneThresholding = msgbox('Click ok when you are done thresholding');
+        doneThresholding = msgbox('DO NOT HIT OKAY. ONLY click ok when you are done thresholding and have hit export');
         waitfor(doneThresholding);
         
         

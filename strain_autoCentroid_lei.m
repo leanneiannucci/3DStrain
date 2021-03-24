@@ -106,6 +106,8 @@ while satisfied == 0
                     coord(i,1,j)=stat(indx).Centroid(1);
                     coord(i,2,j)=stat(indx).Centroid(2);
                     plot(coord(i,1,j),coord(i,2,j),'ro')
+                    hold on;
+                    labelpoints(coord(i,1,j),coord(i,2,j), num2str(j), 'SE',0.2,1, 'FontWeight', 'bold', 'Color', 'r')
                 
                 
             else
@@ -120,6 +122,8 @@ while satisfied == 0
                 coord(i,1,j)=stat(indx).Centroid(1);
                 coord(i,2,j)=stat(indx).Centroid(2);
                 plot(coord(i,1,j),coord(i,2,j),'ro')
+                hold on;
+                labelpoints(coord(i,1,j),coord(i,2,j), num2str(j), 'SE',0.2,1, 'FontWeight', 'bold', 'Color', 'r')
                 
             end
             
