@@ -2,6 +2,10 @@ function [ coord ] = strain_autoCentroid_lei(video, isColorThresh)
 % most recent edit 18Mar2020 to allow for user to specify if they want to
 % go back to a particular frame in the redo
 
+% added in code to mark the points as they are being clicked with ginput 
+
+% adding in code to allow for fixing individual points
+
 %% enter thresholding loop
     if (isColorThresh == 0)
         for i = 1:size(video,4)
@@ -17,12 +21,12 @@ function [ coord ] = strain_autoCentroid_lei(video, isColorThresh)
     clear tmpvideo
        [threshUp, threshDown] =  slideThresh(video(:,:,1));
 
-%%
+%% setup variables for while loop
        satisfied = 0;  
        redo = 0;
        num = 1;
        rethresh = 0;
-%%
+%% start big tracking while loop
 while satisfied == 0 
     
     for i = num:size(video,3)
