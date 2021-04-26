@@ -44,19 +44,41 @@ while satisfied == 0
                     [threshUp, threshDown] =  slideThresh(video(:,:,i));
                 end
            end
-           
+       
+       
        tmp = (video(:,:,i)<=threshUp) & (video(:,:,i)>=threshDown);
        
-       imshow(tmp)
+       imshow(tmp);
+       hold on;
        
        numb_markers = str2double(inputdlg('How many markers?', 'Number of Markers', [1 35]));
-
+        M = zeros(numb_markers,2);
           
        uiwait(msgbox('Click one time on each marker you want to track','Marker Selection','modal'));
-           
-       [Mx, My] = myginput(numb_markers, 'arrow');
-        
-       
+           for q = 1:numb_markers
+
+               if q == 1
+                    [Mx, My] = myginput(1, 'arrow');
+                    M(q, 1) = Mx;
+                    M(q, 2) = My;
+                    close all;
+               else 
+                   imshow(tmp);
+                   hold on;
+                   for qq = 1:(q-1)
+                        plot(M(qq,1),M(qq,2),'ro')
+                        hold on;
+                        labelpoints(M(qq,1),M(qq,2), num2str(qq), 'SE',0.2,1, 'FontWeight', 'bold', 'Color', 'r');
+                        hold on;
+                   end
+                   [Mx, My] = myginput(1, 'arrow');
+                   M(q, 1) = Mx;
+                   M(q, 2) = My;
+                   close all;
+
+               end
+
+           end
        
        end
 
@@ -99,7 +121,7 @@ while satisfied == 0
              
                 for m = 1:max(size(stat))
                     
-                    distnce(m) = sqrt((Mx(j)-stat(m).Centroid(1))^2 + (My(j)-stat(m).Centroid(2))^2);
+                    distnce(m) = sqrt((M(j,1)-stat(m).Centroid(1))^2 + (M(j,2)-stat(m).Centroid(2))^2);
                     
                 end
                     [min_dist, indx] = min(distnce);

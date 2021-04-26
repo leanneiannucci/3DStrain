@@ -60,7 +60,7 @@ addpath(genpath(local))
 tempPath = erase(path, strcat(slashY,'Image or Video',slashY));
 
 %% big analysis loop
-for grandI = 1:length(files)
+for grandI = 5:length(files)
  
 
    
@@ -133,25 +133,25 @@ rightFile = data.rampVideoRightEnhanced;
 
     %% break down left videos into individual images
 
-%     leftFolder = strcat(saveMeHere, 'Left', slashY);
-%     mkdir(leftFolder);
-%     cd(leftFolder);
-%     for i = 1:size(leftFile, 4)
-% 
-%         temp = leftFile(:,:,:,i);
-%         imwrite(temp, strcat(sampleName, '-Left ', num2str(i), '.png'))
-%     end
+    leftFolder = strcat(saveMeHere, 'Left', slashY);
+    mkdir(leftFolder);
+    cd(leftFolder);
+    for i = 1:size(leftFile, 4)
+
+        temp = leftFile(:,:,:,i);
+        imwrite(temp, strcat(sampleName, '-Left ', num2str(i), '.png'))
+    end
 
     %% break down right videos into individual images
-%     cd(saveMeHere);
-%     rightFolder = strcat(saveMeHere, 'Right', slashY);
-%     mkdir(rightFolder);
-%     cd(rightFolder);
-%     for i = 1:size(rightFile, 4)
-% 
-%         temp = rightFile(:,:,:,i);
-%         imwrite(temp, strcat(sampleName, '-Right ', num2str(i), '.png'))
-%     end
+    cd(saveMeHere);
+    rightFolder = strcat(saveMeHere, 'Right', slashY);
+    mkdir(rightFolder);
+    cd(rightFolder);
+    for i = 1:size(rightFile, 4)
+
+        temp = rightFile(:,:,:,i);
+        imwrite(temp, strcat(sampleName, '-Right ', num2str(i), '.png'))
+    end
     
 else
 %% load left and right images
@@ -177,7 +177,7 @@ end
 %                 case 'Cancel'
 %                     error('User hit cancel');
 %             end
-colorType = 0;
+%             
 % % perform color thresholding for the left
 % 
 % if colorType == 1
@@ -227,7 +227,7 @@ colorType = 0;
 %   close(q)
 %   
 % else
-    leftThresh = leftFile;
+%     leftThresh = leftFile;
 % end
 % 
 % % perform color thresholding for the right
@@ -279,43 +279,43 @@ colorType = 0;
 %   close(q)
 %   
 % else
-     rightThresh = rightFile;
+%     rightThresh = rightFile;
 % end
 % 
 % 
 % 
-%% track points in original left video & save coordinates
-clear leftTracker
-strainTrackSaveMeLeft = strcat(saveMeHere, 'Left Tracking/');
-mkdir(strainTrackSaveMeLeft);
-strainTrackNameLeft = strcat(sampleName, '-LeftTracker');
-cd(strainTrackSaveMeLeft);
-[leftTracker] = strain_autoCentroid_lei(leftThresh, colorType);
-cd(saveMeHere);
-
-%% track points in original right video & save coordinates
-clear rightTracker
-strainTrackSaveMeRight = strcat(saveMeHere, 'Right Tracking/');
-mkdir(strainTrackSaveMeRight);
-strainTrackNameRight = strcat(sampleName, '-RightTracker');
-cd(strainTrackSaveMeRight);
-[rightTracker] = strain_autoCentroid_lei(rightThresh, colorType);
-cd(saveMeHere);
-
-
-%% calculate 3d coordinates of points
-clear totalPoints
-for i = 1:size(leftFile, 4)
-    for j = 1:size(leftTracker,3)
-   totalPoints{j, i} = triangulateDLT_LEI_v1(leftTracker(i,1,j),leftTracker(i,2,j),rightTracker(i,1,j), rightTracker(i,2,j),...
-        DLTstructPairs.DLTparams{1, 1}, DLTstructPairs.DLTparams{1, 2} );
-    end
-end
-
-%% save left, right and 3d coordinates
-
-save(strcat(sampleName, '.mat'), 'leftTracker', 'rightTracker', 'totalPoints');
-
-%% clear variables before next loop 
+% %% track points in original left video & save coordinates
+% clear leftTracker
+% strainTrackSaveMeLeft = strcat(saveMeHere, 'Left Tracking/');
+% mkdir(strainTrackSaveMeLeft);
+% strainTrackNameLeft = strcat(sampleName, '-LeftTracker');
+% cd(strainTrackSaveMeLeft);
+% [leftTracker] = strain_autoCentroid_lei(leftThresh, colorType);
+% cd(saveMeHere);
+% 
+% %% track points in original right video & save coordinates
+% clear rightTracker
+% strainTrackSaveMeRight = strcat(saveMeHere, 'Right Tracking/');
+% mkdir(strainTrackSaveMeRight);
+% strainTrackNameRight = strcat(sampleName, '-RightTracker');
+% cd(strainTrackSaveMeRight);
+% [rightTracker] = strain_autoCentroid_lei(rightThresh, colorType);
+% cd(saveMeHere);
+% 
+% 
+% %% calculate 3d coordinates of points
+% clear totalPoints
+% for i = 1:size(leftFile, 4)
+%     for j = 1:size(leftTracker,3)
+%    totalPoints{j, i} = triangulateDLT_LEI_v1(leftTracker(i,1,j),leftTracker(i,2,j),rightTracker(i,1,j), rightTracker(i,2,j),...
+%         DLTstructPairs.DLTparams{1, 1}, DLTstructPairs.DLTparams{1, 2} );
+%     end
+% end
+% 
+% %% save left, right and 3d coordinates
+% 
+% save(strcat(sampleName, '.mat'), 'leftTracker', 'rightTracker', 'totalPoints');
+% 
+% %% clear variables before next loop 
 
 end
